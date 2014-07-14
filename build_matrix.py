@@ -12,15 +12,6 @@ Ratings: Movies x Users
 
 """
 
-# def build_matrix(rows, columns, space_filler):
-# 	#rows are items, columns are users
-# 	#ratings[item_id-1][user_id-1]
-# 	matrix = [space_filler]*rows
-# 	for i in xrange(rows):
-# 		matrix[i] = [space_filler]*columns
-
-# 	matrix = np.array(matrix)
-# 	return matrix
 
 def read_movie_rating(my_file):
 	f = open(my_file)
@@ -29,67 +20,6 @@ def read_movie_rating(my_file):
 	return lines
 
 
-# def fill_matrix(lines, ratings):
-
-# 	#get movie_id from filetext of lines; corresponds to first index
-# 	#of ratings matrix
-# 	line1 = lines[0].split(":", 1)
-# 	movie_id=int(line1[0])
-
-# 	lines.pop(0)  #remove first line with movie_id
-
-
-# 	for i in xrange(len(lines)):
-
-# 		individual_rating = lines[i].split(",")
-# 		#individual_rating = [user_id, rating, date]
-
-# 		user_id = int(individual_rating[0])
-# 		rating = int(individual_rating[1])
-
-
-# 		ratings[movie_id-1][user_id-1]=rating
-
-# 	return ratings
-
-# def build_ratings_matrix_from_file(directory_name, num_users, space_filler):
-
-# 	files = os.listdir(directory_name)
-# 	files.pop(0)  #first entry is .ds_store
-
-# 	#users have to be hardcoded in
-
-# 	ratings = build_matrix(len(files), num_users, space_filler)
-
-# 	for filename in files:
-# 		lines = read_movie_rating(directory_name + "/" + filename)
-# 		fill_matrix(lines, ratings)
-
-# 	return ratings
-
-
-# def fill_matrix_with_average_ratings(ratings):
-# 	for i in xrange(len(ratings)):
-# 		average_rating = np.mean(ratings[i])
-# 		for j in xrange(len(ratings[i])):
-# 			if ratings[i][j] == 0:
-# 				ratings[i][j] = average_rating
-
-# 	return ratings
-
-# def retrieve_folder_data(directory_name, movie_id, line_num):
-# 	files = os.listdir(directory_name)
-# 	files.pop(0)  #first entry is ds.store
-
-# 	filepath = directory_name + "/" + files[movie_id-1]
-
-# 	individual_rating = linecache.getline(filepath, line_num).split(",")
-
-# 	user_id = int(individual_rating[0])
-
-# 	rating = int(individual_rating[1])
-
-# 	return user_id, rating
 
 def file_len(my_file):
 	with open(my_file) as f:
