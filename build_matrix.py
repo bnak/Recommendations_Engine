@@ -129,6 +129,14 @@ def matrix_factorization(A, K, iterations, alpha, beta):
 
 	return P, Q.T
 
+def create_dictionary_of_ratings(movie_id):
+
+
+
+def prediction(movie_id, user_id): 
+
+
+
 
 
 
@@ -136,24 +144,24 @@ def main():
 
 	start_time=datetime.datetime.now()
 
-	ratings = build_ratings_matrix_from_file("netflix_initial_test_data", 10, 0)
+	# ratings = build_ratings_matrix_from_file("netflix_initial_test_data", 10, 0)
 
 	
-	print "Ratings: "
-	print ratings
+	# print "Ratings: "
+	# print ratings
 
-	P, Q = matrix_factorization(ratings, K = 2, iterations=5000, alpha=0.0002, beta=0.02)
+	# P, Q = matrix_factorization(ratings, K = 2, iterations=5000, alpha=0.0002, beta=0.02)
 
-	print "************************************************"
-	print "Estimated_ratings:"
+	# print "************************************************"
+	# print "Estimated_ratings:"
 
-	predicted_ratings = np.dot(P, Q.T)
+	# predicted_ratings = np.dot(P, Q.T)
 
-	print predicted_ratings
+	# print predicted_ratings
 
-	average_error = np.mean(predicted_ratings-fill_matrix_with_average_ratings(ratings))
+	# average_error = np.mean(predicted_ratings-fill_matrix_with_average_ratings(ratings))
 
-	print "Average Error: %s" % average_error
+	# print "Average Error: %s" % average_error
 	
 
 
