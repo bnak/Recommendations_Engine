@@ -153,50 +153,91 @@ def retrieve_rating(ratings_dictionary, movie_id, user_id, ratings_matrix):
 
 def see_rating(ratings_dictionary, movie_id, user_id, ratings_matrix): 
 
+	print "**************************************************"
+
 	print "Movie_id: %s" % movie_id
 	print "User_id: %s" % user_id
 
 
 	retrieve_rating(ratings_dictionary, movie_id, user_id, ratings_matrix)
 
-	print "**************************************************"
+	print "\n"
 
 
-def main(): 
 
-
-	np.set_printoptions(precision=2)
+def test_data_set(test_name, directory_name, K, iterations, alpha, beta, num_users):
 
 	start_time=datetime.datetime.now()
 
+
 	movie_ratings_dictionary = {}  
 
-	movie_ratings_dictionary = create_dictionary_of_ratings("netflix_local_data", movie_ratings_dictionary)
+
+	movie_ratings_dictionary = create_dictionary_of_ratings(directory_name, movie_ratings_dictionary)
 
 
 
 	#pprint(movie_ratings_dictionary)
 
-	P, Q = matrix_factorization_from_file(directory_name="netflix_local_data", 
-		K=2, iterations=5000, alpha=.0002, beta=.0002, 
-		num_users=30, ratings_dictionary=movie_ratings_dictionary)
+	P, Q = matrix_factorization_from_file(directory_name, 
+		K, iterations, alpha, beta,
+		num_users, movie_ratings_dictionary)
 
 	ratings_matrix = np.dot(P, Q.T)
-
-
-	
-	see_rating(movie_ratings_dictionary, 1, 3, ratings_matrix)
-	see_rating(movie_ratings_dictionary, 4, 3, ratings_matrix)
-	see_rating(movie_ratings_dictionary, 1, 13, ratings_matrix)
 
 
 	end_time = datetime.datetime.now()
 
 	time_elapsed = end_time-start_time
 
+	see_rating(movie_ratings_dictionary, 1, 3, ratings_matrix)
+
+
+	print test_name
+	print "Total Time Elapsed: %s" % time_elapsed
+	print "\n"
+	print "\n"
 
 
 
+
+
+
+
+
+
+def main(): 
+
+	start_time=datetime.datetime.now()
+
+	np.set_printoptions(precision=2)
+
+	K=2 
+	iterations=5000
+	alpha=.0002
+	beta=.0002
+
+
+	test_data_set("100x100", "time_test_data/100x100", K, iterations, alpha, beta, 100)
+
+	test_data_set("500x500", "time_test_data/100x100", K, iterations, alpha, beta, 500)
+
+	test_data_set("800x800", "time_test_data/100x100", K, iterations, alpha, beta, 800)
+
+	test_data_set("1000x1000", "time_test_data/100x100", K, iterations, alpha, beta, 1000)
+
+
+
+
+
+
+
+
+
+	end_time = datetime.datetime.now()
+	time_elapsed = end_time-start_time
+
+	print "***********************************************************"
 	print "Total Time Elapsed: %s" % time_elapsed
 
 	
