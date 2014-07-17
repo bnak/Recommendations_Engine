@@ -4,6 +4,7 @@ import os
 import datetime
 import linecache
 import sys
+from pprint import pprint
 
 """
 xrange only available in Python 2.7; generator for iteration rather than creating a list
@@ -18,7 +19,6 @@ def read_movie_rating(my_file):
 	lines = f.readlines()
 	f.close()
 	return lines
-
 
 
 def file_len(my_file):
@@ -56,11 +56,13 @@ def matrix_factorization_from_file(directory_name, K, iterations, alpha, beta, n
 
 	for step in xrange(iterations):
 		for i in xrange(num_movies): 
-
+			i = i
 
 			for j in xrange(num_users):
 
-				rating = ratings_dictionary.get((i, j), 0)
+
+				rating = ratings_dictionary.get((i+1, j+1), 0)
+
 
 
 				if rating > 0:
@@ -75,7 +77,7 @@ def matrix_factorization_from_file(directory_name, K, iterations, alpha, beta, n
 		for i in xrange(num_movies):
 			for j in xrange(num_users):
 				if rating>0:
-					error_prime = error_prime + pow(A[i][j] - np.dot(P[i,:], Q[:,j]),2)
+					error_prime = error_prime + pow(rating - np.dot(P[i,:], Q[:,j]),2)
 					for k in xrange(K):
 						error_prime = error_prime + (beta/2) * (pow(P[i][k],2)+pow(Q[k][j],2))
 			if error_prime < 0.001:
@@ -83,102 +85,107 @@ def matrix_factorization_from_file(directory_name, K, iterations, alpha, beta, n
 
 	return P, Q.T
 
-def create_dictionary_of_ratings(directory_name, movie_id, movie_ratings_dictionary):
-
-	 
+def create_dictionary_of_ratings(directory_name, movie_ratings_dictionary):
 
 	files = os.listdir(directory_name)
 
 	files.pop(0)  #first entry is ds.store
 
-	filepath = directory_name + "/" + files[movie_id-1]
-
 	#individual_rating = linecache.getline(filepath, line_num).split(",")
 
-	ratings = read_movie_rating(filepath)
+	for j in xrange(len(files)):
 
-	for i in xrange(2,file_len(filepath)):
-		individual_rating = linecache.getline(filepath, i).split(",")
-		user_id = int(individual_rating[0])	
+		movie_id = j + 1
+		filepath = directory_name + "/" + files[movie_id-1]
+		atings = read_movie_rating(filepath)
 
-		rating = int(individual_rating[1])
 
-		key = (movie_id, user_id)
-		movie_ratings_dictionary[key] = rating
+		for i in xrange(2,file_len(filepath)):
+			individual_rating = linecache.getline(filepath, i).split(",")
+			user_id = int(individual_rating[0])	
+			rating = int(individual_rating[1])
 
+			key = (movie_id, user_id)
+			movie_ratings_dictionary[key] = rating
 
 
 	return movie_ratings_dictionary
 
 
 
-def calculate_prediction(directory_name, movie_id, user_id, num_movies, num_users): 
 
-	ratings = {}
-
-	ratings = create_dictionary_of_ratings(directory_name, movie_id, ratings)
-
-
-
-	P, Q = matrix_factorization_from_file(directory_name=directory_name, 
-		K=2, iterations=5000, alpha=.0002, beta=.0002, 
-		num_users=30, ratings_dictionary=ratings)
-
+def retrieve_rating(ratings_dictionary, movie_id, user_id, ratings_matrix):
 	
-	vector_2 = [Q[user_id]]
+	#pprint(ratings_dictionary)
 
+	key = (movie_id, user_id)
 
-	predicted_rating = np.dot(P[movie_id], vector_2[0].T)
-
-
-
-	return predicted_rating
-
-
-def retrieve_rating(directory_name, movie_id, user_id, num_movies, num_users):
-
-	ratings = {}
-
-	ratings_dictionary = create_dictionary_of_ratings(directory_name, movie_id, ratings)
-
-	individual_rating = ratings_dictionary.get((movie_id, user_id), 0)
+	individual_rating = (ratings_dictionary.get(key, 0))
+	print individual_rating
 
 	if individual_rating>0: 
 
 		print "Previously rated: %s" % individual_rating
+
+		predicted = (ratings_matrix[movie_id-1][user_id-1])
+
+		print "Predicted: %s" % predicted
+
+		#print "Error: %s" % int(individual_rating-predicted)
 		return individual_rating
 
 	else: 
-		individual_rating = calculate_prediction(directory_name, movie_id, user_id, num_movies, num_users)
+		individual_rating = ratings_matrix[movie_id-1][user_id-1]
 
 		print "Predicted rating: %s" % individual_rating
+		return individual_rating
 
 
+def see_rating(ratings_dictionary, movie_id, user_id, ratings_matrix): 
+
+	print "Movie_id: %s" % movie_id
+	print "User_id: %s" % user_id
 
 
+	retrieve_rating(ratings_dictionary, movie_id, user_id, ratings_matrix)
+
+	print "**************************************************"
 
 
 def main(): 
+
+
+	np.set_printoptions(precision=2)
 
 	start_time=datetime.datetime.now()
 
 	movie_ratings_dictionary = {}  
 
-	#(movie i, user j) = rating
-	movie_id = 3
-	user_id = 29
+	movie_ratings_dictionary = create_dictionary_of_ratings("netflix_local_data", movie_ratings_dictionary)
 
 
 
-	retrieve_rating("netflix_local_data", movie_id, user_id, 20, 30)
+	#pprint(movie_ratings_dictionary)
+
+	P, Q = matrix_factorization_from_file(directory_name="netflix_local_data", 
+		K=2, iterations=5000, alpha=.0002, beta=.0002, 
+		num_users=30, ratings_dictionary=movie_ratings_dictionary)
+
+	ratings_matrix = np.dot(P, Q.T)
 
 
-
+	
+	see_rating(movie_ratings_dictionary, 1, 3, ratings_matrix)
+	see_rating(movie_ratings_dictionary, 4, 3, ratings_matrix)
+	see_rating(movie_ratings_dictionary, 1, 13, ratings_matrix)
 
 
 	end_time = datetime.datetime.now()
 
 	time_elapsed = end_time-start_time
+
+
+
 
 	print "Total Time Elapsed: %s" % time_elapsed
 
