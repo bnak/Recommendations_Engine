@@ -6,6 +6,14 @@ import linecache
 import sys
 from pprint import pprint
 
+#Time points for different sizes:
+	# 50x50
+	# 100x100
+	# 300x300
+	# 500x500
+	# 800x800
+	# 1000x1000
+
 """
 xrange only available in Python 2.7; generator for iteration rather than creating a list
 Matrix: rows x columns
@@ -27,6 +35,32 @@ def file_len(my_file):
 			pass
 	return i+1
 
+
+def create_dictionary_of_ratings(directory_name, movie_ratings_dictionary):
+
+	files = os.listdir(directory_name)
+
+	files.pop(0)  #first entry is ds.store
+
+	#individual_rating = linecache.getline(filepath, line_num).split(",")
+
+	for j in xrange(len(files)):
+
+		movie_id = j + 1
+		filepath = directory_name + "/" + files[movie_id-1]
+		ratings = read_movie_rating(filepath)
+
+
+		for i in xrange(2,file_len(filepath)):
+			individual_rating = linecache.getline(filepath, i).split(",")
+			user_id = int(individual_rating[0])	
+			rating = int(individual_rating[1])
+
+			key = (movie_id, user_id)
+			movie_ratings_dictionary[key] = rating
+
+
+	return movie_ratings_dictionary
 
 def matrix_factorization_from_file(directory_name, K, iterations, alpha, beta, num_users, ratings_dictionary):
 	"""
@@ -85,31 +119,7 @@ def matrix_factorization_from_file(directory_name, K, iterations, alpha, beta, n
 
 	return P, Q.T
 
-def create_dictionary_of_ratings(directory_name, movie_ratings_dictionary):
 
-	files = os.listdir(directory_name)
-
-	files.pop(0)  #first entry is ds.store
-
-	#individual_rating = linecache.getline(filepath, line_num).split(",")
-
-	for j in xrange(len(files)):
-
-		movie_id = j + 1
-		filepath = directory_name + "/" + files[movie_id-1]
-		atings = read_movie_rating(filepath)
-
-
-		for i in xrange(2,file_len(filepath)):
-			individual_rating = linecache.getline(filepath, i).split(",")
-			user_id = int(individual_rating[0])	
-			rating = int(individual_rating[1])
-
-			key = (movie_id, user_id)
-			movie_ratings_dictionary[key] = rating
-
-
-	return movie_ratings_dictionary
 
 
 
