@@ -74,19 +74,8 @@ def create_file(max_movie_number, directory_name, max_user_number, test_size):
 
 def main():
 
-	create_file(max_movie_number=100, directory_name = "time_test_data",
-		 max_user_number=100, test_size = "100x100")
-
-	create_file(max_movie_number=500, directory_name = "time_test_data",
-		 max_user_number=500, test_size = "500x500")
-
-	create_file(max_movie_number=800, directory_name = "time_test_data",
-		 max_user_number=800, test_size = "800x800")
-
-
-
-	create_file(max_movie_number=1000, directory_name = "time_test_data",
-		 max_user_number=1000, test_size = "1000x1000")
+	create_file(max_movie_number=50, directory_name = "time_test_data",
+		 max_user_number=50, test_size = "50x50")
 
 
 

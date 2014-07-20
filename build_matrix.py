@@ -30,10 +30,11 @@ def read_movie_rating(my_file):
 
 
 def file_len(my_file):
+
 	with open(my_file) as f:
 		for i, l in enumerate(f):
 			pass
-	return i+1
+			return (i+1)
 
 
 def create_dictionary_of_ratings(directory_name, movie_ratings_dictionary):
@@ -48,7 +49,7 @@ def create_dictionary_of_ratings(directory_name, movie_ratings_dictionary):
 
 		movie_id = j + 1
 		filepath = directory_name + "/" + files[movie_id-1]
-		ratings = read_movie_rating(filepath)
+		#ratings = read_movie_rating(filepath)
 
 
 		for i in xrange(2,file_len(filepath)):
@@ -163,6 +164,25 @@ def see_rating(ratings_dictionary, movie_id, user_id, ratings_matrix):
 
 	print "\n"
 
+def print_output_to_file(output_matrix, directory_name, file_name):
+
+	print output_matrix
+
+
+	filepath = directory_name + "/" + file_name
+
+	output_text = open(filepath, 'w')
+
+	np.save(output_text, output_matrix)
+
+	#output_matrix.tofile(output_text, "\n", "%d")
+
+
+	print "Output printed."
+
+
+
+
 
 
 def test_data_set(test_name, directory_name, K, iterations, alpha, beta, num_users):
@@ -185,16 +205,23 @@ def test_data_set(test_name, directory_name, K, iterations, alpha, beta, num_use
 
 	ratings_matrix = np.dot(P, Q.T)
 
+	print_output_to_file(ratings_matrix, directory_name, test_name)
+
+	
+
 
 	end_time = datetime.datetime.now()
 
 	time_elapsed = end_time-start_time
 
+
+
 	see_rating(movie_ratings_dictionary, 1, 3, ratings_matrix)
 
 
+
 	print test_name
-	print "Total Time Elapsed: %s" % time_elapsed
+	print "Test Time Elapsed: %s" % time_elapsed
 	print "\n"
 	print "\n"
 
@@ -218,14 +245,17 @@ def main():
 	beta=.0002
 
 
-	test_data_set("100x100", "time_test_data/100x100", K, iterations, alpha, beta, 100)
+	#test_data_set("100x100", "time_test_data/100x100", K, iterations, alpha, beta, 100)
 
-	test_data_set("500x500", "time_test_data/100x100", K, iterations, alpha, beta, 500)
+	#test_data_set("800x800", "time_test_data/800x800", K, iterations, alpha, beta, 800)
 
-	test_data_set("800x800", "time_test_data/100x100", K, iterations, alpha, beta, 800)
+	#test_data_set("1000x1000", "time_test_data/1000x1000", K, iterations, alpha, beta, 1000)
 
-	test_data_set("1000x1000", "time_test_data/100x100", K, iterations, alpha, beta, 1000)
+	test_data_set("50x50", "time_test_data/50x50", K, iterations, alpha, beta, 50)
 
+	# x = np.load("time_test_data/50x50/50x50")
+
+	# print x
 
 
 
