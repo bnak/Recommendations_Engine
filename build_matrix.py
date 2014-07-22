@@ -34,7 +34,7 @@ def file_len(my_file):
 	with open(my_file) as f:
 		for i, l in enumerate(f):
 			pass
-			return (i+1)
+		return (i+1)
 
 
 def create_dictionary_of_ratings(directory_name, movie_ratings_dictionary):
@@ -45,15 +45,18 @@ def create_dictionary_of_ratings(directory_name, movie_ratings_dictionary):
 
 	#individual_rating = linecache.getline(filepath, line_num).split(",")
 
+	
 	for j in xrange(len(files)):
 
 		movie_id = j + 1
 		filepath = directory_name + "/" + files[movie_id-1]
-		#ratings = read_movie_rating(filepath)
+		ratings = read_movie_rating(filepath)
 
 
 		for i in xrange(2,file_len(filepath)):
 			individual_rating = linecache.getline(filepath, i).split(",")
+
+	
 			user_id = int(individual_rating[0])	
 			rating = int(individual_rating[1])
 
@@ -197,7 +200,8 @@ def test_data_set(test_name, directory_name, K, iterations, alpha, beta, num_use
 
 
 
-	#pprint(movie_ratings_dictionary)
+
+	pprint(movie_ratings_dictionary)
 
 	P, Q = matrix_factorization_from_file(directory_name, 
 		K, iterations, alpha, beta,
@@ -245,13 +249,14 @@ def main():
 	beta=.0002
 
 
+
 	#test_data_set("100x100", "time_test_data/100x100", K, iterations, alpha, beta, 100)
 
 	#test_data_set("800x800", "time_test_data/800x800", K, iterations, alpha, beta, 800)
 
 	#test_data_set("1000x1000", "time_test_data/1000x1000", K, iterations, alpha, beta, 1000)
 
-	test_data_set("50x50", "time_test_data/50x50", K, iterations, alpha, beta, 50)
+	test_data_set("Test", "netflix_local_data", K, iterations, alpha, beta, 30)
 
 	# x = np.load("time_test_data/50x50/50x50")
 
