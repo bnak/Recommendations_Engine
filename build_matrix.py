@@ -261,7 +261,8 @@ def calculate_common_users_of_both_movies(movie1, movie2, movies_and_users_who_r
 
 
 
-def make_neighborhoods_from_movie(movies_and_users_who_rated, list_of_movies_that_define_neighborhood, num_neighborhoods):
+def make_neighborhoods_from_movie(movies_and_users_who_rated, 
+	list_of_movies_that_define_neighborhood, num_neighborhoods, max_size_of_neighborhood):
 
 	'''
 	INPUT:
@@ -310,12 +311,15 @@ def make_neighborhoods_from_movie(movies_and_users_who_rated, list_of_movies_tha
 
 			common_users = calculate_common_users_of_both_movies(movie_id, item, movies_and_users_who_rated)
 
+
+
 			if common_users > best_match_score:
-				best_match = item
+				if len(movies_and_neighborhood[item])<max_size_of_neighborhood:
+					best_match = item
+
+
 
 		movies_and_neighborhood[best_match].append(movie_id)
-
-	print movies_and_neighborhood
 
 
 
@@ -344,7 +348,9 @@ def main():
 	movie_list = [1,2,3,4,5,6,7,8]
 
 
-	make_neighborhoods_from_movie(movies_and_users_who_rated, movie_list, 3)
+	movies_and_neighborhood = make_neighborhoods_from_movie(movies_and_users_who_rated, movie_list, 3, 8)
+
+	pprint(movies_and_neighborhood)
 	# print calculate_number_of_users_who_rated_all_movies(movie_list,movies_and_users_who_rated)
 
 	# print calculate_common_users_of_both_movies(1,3,movies_and_users_who_rated)
