@@ -69,7 +69,7 @@ def create_dictionary_of_ratings(directory_name, movie_ratings_dictionary):
 
 
 
-def matrix_factorization_from_file(directory_name, K, iterations, alpha, beta, num_users, ratings_dictionary):
+def matrix_factorization_from_file(neighborhood, K, iterations, alpha, beta, num_users, ratings_dictionary):
 	"""
 
 	INPUT:
@@ -85,10 +85,11 @@ def matrix_factorization_from_file(directory_name, K, iterations, alpha, beta, n
 
 	"""
 
-	files = os.listdir(directory_name)
-	files.pop(0)  #removes first entry of ds.store
 
-	num_movies = len(files)
+
+	num_movies = len(neighborhood)
+
+	movie_and_index_in_neighborhood = {}
 
 	P = np.random.rand(num_movies, K)
 	Q = np.random.rand(num_users, K)
@@ -97,11 +98,13 @@ def matrix_factorization_from_file(directory_name, K, iterations, alpha, beta, n
 
 	for step in xrange(iterations):
 		for i in xrange(num_movies): 
-			i = i
+
+			movie_id = neighborhood[i]
+			
 
 			for j in xrange(num_users):
 
-				rating = ratings_dictionary.get((i+1, j+1), 0)
+				rating = ratings_dictionary.get((movie_id, j+1), 0)
 
 				if rating > 0:
 					eij = rating - np.dot(P[i,:], Q[:,j])
@@ -120,6 +123,8 @@ def matrix_factorization_from_file(directory_name, K, iterations, alpha, beta, n
 						error_prime = error_prime + (beta/2) * (pow(P[i][k],2)+pow(Q[k][j],2))
 			if error_prime < 0.001:
 				break
+
+	print movie_and_index_in_neighborhood
 
 	return P, Q.T
 
@@ -340,6 +345,7 @@ def main():
 	iterations=5000
 	alpha=.0002
 	beta=.0002
+	num_users = 2649429
 
 	dictionary = {}
 	movie_ratings_dictionary, movies_and_users_who_rated = create_dictionary_of_ratings("Netflix Data", dictionary)
@@ -350,6 +356,8 @@ def main():
 
 
 	movies_and_neighborhood = make_neighborhoods_from_movie(movies_and_users_who_rated, movie_list, 3, 50)
+
+	matrix_factorization_from_file(movies_and_neighborhood[30], K, iterations, alpha, beta, num_users, movie_ratings_dictionary)
 
 	#pprint(movies_and_neighborhood)
 	# print calculate_number_of_users_who_rated_all_movies(movie_list,movies_and_users_who_rated)
