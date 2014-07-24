@@ -67,6 +67,8 @@ def create_dictionary_of_ratings(directory_name, movie_ratings_dictionary):
 
 	return movie_ratings_dictionary, movies_and_users_who_rated
 
+
+
 def matrix_factorization_from_file(directory_name, K, iterations, alpha, beta, num_users, ratings_dictionary):
 	"""
 
@@ -99,10 +101,7 @@ def matrix_factorization_from_file(directory_name, K, iterations, alpha, beta, n
 
 			for j in xrange(num_users):
 
-
 				rating = ratings_dictionary.get((i+1, j+1), 0)
-
-
 
 				if rating > 0:
 					eij = rating - np.dot(P[i,:], Q[:,j])
@@ -288,8 +287,11 @@ def make_neighborhoods_from_movie(movies_and_users_who_rated,
 	movies_and_neighborhood = {}
 
 
+	list_of_movies_that_define_neighborhood = list_of_movies_that_define_neighborhood[0:num_neighborhoods]
+
+
 	for i in range(num_neighborhoods):
-		movies_and_neighborhood[i+1] = neighborhoods[i]
+		movies_and_neighborhood[list_of_movies_that_define_neighborhood[i]] = neighborhoods[i]
 
 
 	list_of_movies_that_define_neighborhood = list_of_movies_that_define_neighborhood[0:num_neighborhoods]
@@ -301,8 +303,9 @@ def make_neighborhoods_from_movie(movies_and_users_who_rated,
 	for movie in movies:
 		movie_id = movie[0]
 
-		best_match = list_of_movies_that_define_neighborhood[0]
+		best_match=0
 
+		movies_and_users_who_rated[0] = []
 
 
 		for item in list_of_movies_that_define_neighborhood:
@@ -311,18 +314,15 @@ def make_neighborhoods_from_movie(movies_and_users_who_rated,
 
 			common_users = calculate_common_users_of_both_movies(movie_id, item, movies_and_users_who_rated)
 
-
-
 			if common_users > best_match_score:
+
 				if len(movies_and_neighborhood[item])<max_size_of_neighborhood:
 					best_match = item
-
-
 
 		movies_and_neighborhood[best_match].append(movie_id)
 
 
-
+	print movies_and_neighborhood
 
 	return movies_and_neighborhood
                                                      
@@ -342,19 +342,19 @@ def main():
 	beta=.0002
 
 	dictionary = {}
-	movie_ratings_dictionary, movies_and_users_who_rated = create_dictionary_of_ratings("netflix_local_data", dictionary)
+	movie_ratings_dictionary, movies_and_users_who_rated = create_dictionary_of_ratings("Netflix Data", dictionary)
 
 
-	movie_list = [1,2,3,4,5,6,7,8]
+
+	movie_list = [30, 28, 143, 54]
 
 
-	movies_and_neighborhood = make_neighborhoods_from_movie(movies_and_users_who_rated, movie_list, 3, 8)
+	movies_and_neighborhood = make_neighborhoods_from_movie(movies_and_users_who_rated, movie_list, 3, 50)
 
-	pprint(movies_and_neighborhood)
+	#pprint(movies_and_neighborhood)
 	# print calculate_number_of_users_who_rated_all_movies(movie_list,movies_and_users_who_rated)
 
 	# print calculate_common_users_of_both_movies(1,3,movies_and_users_who_rated)
-
 
 
 	#test_data_set("100x100", "time_test_data/100x100", K, iterations, alpha, beta, 100)
@@ -368,9 +368,6 @@ def main():
 	# x = np.load("time_test_data/50x50/50x50")
 
 	# print x
-
-
-
 
 
 
