@@ -6,6 +6,8 @@ import linecache
 import sys
 from pprint import pprint
 
+#Class for input generators
+
 
 """
 xrange only available in Python 2.7; generator for iteration rather than creating a list
@@ -100,6 +102,7 @@ def matrix_factorization_from_file(neighborhood, K, iterations, alpha, beta, num
 		for i in xrange(num_movies): 
 
 			movie_id = neighborhood[i]
+			movie_and_index_in_neighborhood[movie_id] = i 
 			
 
 			for j in xrange(num_users):
@@ -124,9 +127,43 @@ def matrix_factorization_from_file(neighborhood, K, iterations, alpha, beta, num
 			if error_prime < 0.001:
 				break
 
-	print movie_and_index_in_neighborhood
+	movie_and_index_in_neighborhood
 
-	return P, Q.T
+	return P, Q.T, movie_and_index_in_neighborhood
+
+
+def create_dictionary_of_predicted_ratings (P, Q, movies_and_index_in_neighborhood, num_users):
+
+	predicted_ratings_dictionary = {}
+
+	predicted_ratings_matrix = np.dot(P, Q.T)
+
+	predicted_raings_matrix = np.around(predicted_ratings_matrix, decimals = 1)
+	print predicted_ratings_matrix
+
+	movies_in_neighborhood = movies_and_index_in_neighborhood.items()
+
+	for movie in movies_in_neighborhood:
+		movie_id = movie[0]
+		row_in_matrix = movie[1]
+
+		for i in range(num_users):
+
+			user_id = i
+			rating = predicted_ratings_matrix[row_in_matrix][i]
+
+			key = (movie_id, user_id)
+
+			predicted_ratings_dictionary[key] = rating
+
+	return(predicted_ratings_dictionary)
+
+
+
+	
+
+
+
 
 
 
@@ -327,7 +364,7 @@ def make_neighborhoods_from_movie(movies_and_users_who_rated,
 		movies_and_neighborhood[best_match].append(movie_id)
 
 
-	print movies_and_neighborhood
+
 
 	return movies_and_neighborhood
                                                      
@@ -345,21 +382,22 @@ def main():
 	iterations=5000
 	alpha=.0002
 	beta=.0002
-	num_users = 2649429
+	num_users = 30
 
 	dictionary = {}
-	movie_ratings_dictionary, movies_and_users_who_rated = create_dictionary_of_ratings("Netflix Data", dictionary)
+	movie_ratings_dictionary, movies_and_users_who_rated = create_dictionary_of_ratings("netflix_local_data", dictionary)
 
 
 
-	movie_list = [30, 28, 143, 54]
+	movie_list = [1, 2, 3, 4]
 
 
-	movies_and_neighborhood = make_neighborhoods_from_movie(movies_and_users_who_rated, movie_list, 3, 50)
+	movies_and_neighborhood = make_neighborhoods_from_movie(movies_and_users_who_rated, movie_list, 3, 10)
 
-	matrix_factorization_from_file(movies_and_neighborhood[30], K, iterations, alpha, beta, num_users, movie_ratings_dictionary)
+	P, Q, movies_and_index_in_neighborhood = matrix_factorization_from_file(movies_and_neighborhood[1], K, iterations, alpha, beta, num_users, movie_ratings_dictionary)
 
-	#pprint(movies_and_neighborhood)
+	create_dictionary_of_predicted_ratings(P,Q, movies_and_index_in_neighborhood, num_users)
+
 	# print calculate_number_of_users_who_rated_all_movies(movie_list,movies_and_users_who_rated)
 
 	# print calculate_common_users_of_both_movies(1,3,movies_and_users_who_rated)
