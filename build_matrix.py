@@ -383,31 +383,8 @@ def main():
 
 
 
-	movie_list = [1, 2, 3, 4]
-
-
-	movies_and_neighborhood = make_neighborhoods_from_movie(movies_and_users_who_rated, movie_list, 3, 10)
-
-	P, Q, movies_and_index_in_neighborhood = matrix_factorization_from_file(movies_and_neighborhood[1], K, iterations, alpha, beta, num_users, movie_ratings_dictionary)
-
-	create_dictionary_of_predicted_ratings(P,Q, movies_and_index_in_neighborhood, num_users)
-
-	# print calculate_number_of_users_who_rated_all_movies(movie_list,movies_and_users_who_rated)
-
-	# print calculate_common_users_of_both_movies(1,3,movies_and_users_who_rated)
-
-
-	#test_data_set("100x100", "time_test_data/100x100", K, iterations, alpha, beta, 100)
-
-	#test_data_set("800x800", "time_test_data/800x800", K, iterations, alpha, beta, 800)
-
-	#test_data_set("1000x1000", "time_test_data/1000x1000", K, iterations, alpha, beta, 1000)
-
-	#test_data_set("Test", "netflix_local_data", K, iterations, alpha, beta, 30)
-
-	# x = np.load("time_test_data/50x50/50x50")
-
-	# print x
+	print_output_to_file(movie_ratings_dictionary, "Test_output", "movie_ratings_dictionary_NLD")
+	print_output_to_file(movies_and_users_who_rated, "Test_output", "movies_and_users_who_rated_NLD")
 
 
 

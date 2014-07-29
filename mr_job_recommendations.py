@@ -12,17 +12,17 @@ from pprint import pprint
 class MR_build_matrix(MRJob):
 
 	def __init__(self):
-		self.ratings_dictionary = {}
-		self.movies_and_users_who_rated = {}
-		self.num_movies = 20
-		self.num_users = 30
+		self.ratings_dictionary = {} #needs to be loaded from input file
+		self.movies_and_users_who_rated = {} #needs to be loaded from input file
+		self.num_movies = 20 #static int - hardcoded
+		self.num_users = 30 #static int - hardcoded
 
-		self.list_of_movies_that_define_neighborhood = []
-		self.num_neighborhoods = 5
-		self.neighborhoods = [[] for x in xrange(self.num_neighborhoods)] #list of neighborhoods
-		self.movies_and_neighborhood = {}
-		self.max_size_of_neighborhood = 10
+		self.list_of_movies_that_define_neighborhood = [] #list of movies with most ratings - hardcoded or read in from file
+		self.num_neighborhoods = 5 #static int - hardcoded
+		self.max_size_of_neighborhood = 10 #static int- hardcoded
 
+
+		#parameters hardcoded for matrix factorization
 		self.K=2 
 		self.iterations=5000
 		self.alpha=.0002
@@ -36,6 +36,7 @@ class MR_build_matrix(MRJob):
 				self.list_of_movies_that_define_neighborhood, self.num_neighborhoods, self.max_size_of_neighborhood)
 
 		for item in movies_and_neighborhood.items():
+			#yield (movid_id that defines neighborhood, list of movies in that neighborhood)
 			yield item
 
 	def reducer_create_matrix(self, _, neighborhood): 
@@ -46,6 +47,7 @@ class MR_build_matrix(MRJob):
 		predicted_ratings_dictionary = create_dictionary_of_predicted_ratings (P, Q, movies_and_index_in_neighborhood, self.num_users)
 
 		for item in predicted_ratings_dictionary.items():
+			#yield ((movie_id, user_id), predicted rating)
 			yield item
 
 	def steps(self):
