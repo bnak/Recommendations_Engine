@@ -71,7 +71,8 @@ def create_dictionary_of_ratings(directory_name, movie_ratings_dictionary):
 
 
 
-def matrix_factorization_from_file(neighborhood, K, iterations, alpha, beta, num_users, ratings_dictionary):
+def matrix_factorization_from_file(neighborhood_tuple, K, iterations, alpha, beta,
+	 num_users, num_movies, ratings_dictionary):
 	"""
 
 	INPUT:
@@ -87,9 +88,9 @@ def matrix_factorization_from_file(neighborhood, K, iterations, alpha, beta, num
 
 	"""
 
+	neighborhood = list(neighborhood_tuple)
+	print "Neighborhood: %s" % neighborhood
 
-
-	num_movies = len(neighborhood)
 
 	movie_and_index_in_neighborhood = {}
 
@@ -102,6 +103,7 @@ def matrix_factorization_from_file(neighborhood, K, iterations, alpha, beta, num
 		for i in xrange(num_movies): 
 
 			movie_id = neighborhood[i]
+
 			movie_and_index_in_neighborhood[movie_id] = i 
 			
 
@@ -332,8 +334,8 @@ def make_neighborhoods_from_movie(movies_and_users_who_rated,
 
 	list_of_movies_that_define_neighborhood = list_of_movies_that_define_neighborhood[0:num_neighborhoods]
 
-
 	movies = movies_and_users_who_rated.items()
+
 
 
 	for movie in movies:
