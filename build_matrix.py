@@ -156,13 +156,7 @@ def create_dictionary_of_predicted_ratings (P, Q, movies_and_index_in_neighborho
 
 			predicted_ratings_dictionary[key] = rating
 
-	return(predicted_ratings_dictionary)
-
-
-
-	
-
-
+	return predicted_ratings_dictionary
 
 
 
