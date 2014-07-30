@@ -19,8 +19,8 @@ class MR_build_matrix(MRJob):
 		self.num_movies = 20 #static int - hardcoded
 		self.num_users = 30 #static int - hardcoded
 
-		self.list_of_movies_that_define_neighborhood = [0,1,2,3,4] #list of movies with most ratings - hardcoded or read in from file
-		self.num_neighborhoods = 5 #static int - hardcoded
+		self.list_of_movies_that_define_neighborhood = [1,2,3,4] #list of movies with most ratings - hardcoded or read in from file
+		self.num_neighborhoods = 2 #static int - hardcoded
 		self.max_size_of_neighborhood = 10 #static int- hardcoded
 
 
@@ -42,19 +42,28 @@ class MR_build_matrix(MRJob):
 		for item in movies_and_neighborhood.iterkeys():
 			#yield (movid_id that defines neighborhood, list of movies in that neighborhood)
 			key = item
-			value = tuple(movies_and_neighborhood[item])
-			print (key, value)
 
-			yield (key, value)
+			for movie in movies_and_neighborhood[item]:
 
-	def reducer_create_matrix(self, movie, neighborhood): 
+				value = movie
+				print (key, value)
 
-		print movie, neighborhood
+				yield (key, value)
 
-		P, Q, movies_and_index_in_neighborhood = build_matrix.matrix_factorization_from_file(neighborhood, self.K, self.iterations, 
-			self.alpha, self.beta, self.num_users, self.num_movies, self.ratings_dictionary)
 
-		predicted_ratings_dictionary = create_dictionary_of_predicted_ratings (P, Q, movies_and_index_in_neighborhood, self.num_users)
+
+	def reducer_create_matrix(self, neighborhood, movie): 
+
+		movies_in_neighborhood = list(movie)
+		movies_in_neighborhood = build_matrix.remove_duplicates_from_list(movies_in_neighborhood)
+		print movies_in_neighborhood
+
+		P, Q, movies_and_index_in_neighborhood = build_matrix.matrix_factorization_from_file(movies_in_neighborhood, 
+			self.K, self.iterations, self.alpha, self.beta, self.num_users, self.ratings_dictionary)
+
+		print movies_and_index_in_neighborhood
+
+		predicted_ratings_dictionary = build_matrix.create_dictionary_of_predicted_ratings (P, Q, movies_and_index_in_neighborhood, self.num_users)
 
 		for item in predicted_ratings_dictionary.items():
 			#yield ((movie_id, user_id), predicted rating)
@@ -79,6 +88,9 @@ def main():
 
 	end_time = datetime.datetime.now()
 	time_elapsed = end_time-start_time
+
+	a = MR_build_matrix()
+	pprint(a.ratings_dictionary)
 
 	print "***********************************************************"
 	print "Total Time Elapsed: %s" % time_elapsed

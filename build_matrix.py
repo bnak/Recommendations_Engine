@@ -71,8 +71,8 @@ def create_dictionary_of_ratings(directory_name, movie_ratings_dictionary):
 
 
 
-def matrix_factorization_from_file(neighborhood_tuple, K, iterations, alpha, beta,
-	 num_users, num_movies, ratings_dictionary):
+def matrix_factorization_from_file(neighborhood, K, iterations, alpha, beta,
+	 num_users, ratings_dictionary):
 	"""
 
 	INPUT:
@@ -88,9 +88,9 @@ def matrix_factorization_from_file(neighborhood_tuple, K, iterations, alpha, bet
 
 	"""
 
-	neighborhood = list(neighborhood_tuple)
-	print "Neighborhood: %s" % neighborhood
-
+	#neighborhood = list(neighborhood_tuple)
+	#neighborhood = list(movie)
+	num_movies = len(neighborhood)
 
 	movie_and_index_in_neighborhood = {}
 
@@ -141,7 +141,7 @@ def create_dictionary_of_predicted_ratings (P, Q, movies_and_index_in_neighborho
 	predicted_ratings_matrix = np.dot(P, Q.T)
 
 	predicted_raings_matrix = np.around(predicted_ratings_matrix, decimals = 1)
-	print predicted_ratings_matrix
+
 
 	movies_in_neighborhood = movies_and_index_in_neighborhood.items()
 
@@ -334,14 +334,18 @@ def make_neighborhoods_from_movie(movies_and_users_who_rated,
 
 	list_of_movies_that_define_neighborhood = list_of_movies_that_define_neighborhood[0:num_neighborhoods]
 
+	movies_and_users_who_rated.pop(0, None)
+
+	pprint(movies_and_users_who_rated)
 	movies = movies_and_users_who_rated.items()
 
 
 
 	for movie in movies:
 		movie_id = movie[0]
+		print movie_id
 
-		best_match=0
+		best_match=1
 
 		movies_and_users_who_rated[0] = []
 
@@ -363,6 +367,15 @@ def make_neighborhoods_from_movie(movies_and_users_who_rated,
 
 
 	return movies_and_neighborhood
+
+def remove_duplicates_from_list(list1): 
+   # order preserving
+   checked = []
+   for x in list1:
+       if x not in checked:
+           checked.append(x)
+   return checked
+
                                                      
  
 
@@ -384,9 +397,10 @@ def main():
 	movie_ratings_dictionary, movies_and_users_who_rated = create_dictionary_of_ratings("netflix_local_data", dictionary)
 
 
-
-	print_output_to_file(movie_ratings_dictionary, "Test_output", "movie_ratings_dictionary_NLD")
-	print_output_to_file(movies_and_users_who_rated, "Test_output", "movies_and_users_who_rated_NLD")
+	P, Q, movies_and_index_in_neighborhood = matrix_factorization_from_file(neighborhood_tuple, K, iterations, alpha, beta,
+	 num_users, num_movies, ratings_dictionary)
+	# print_output_to_file(movie_ratings_dictionary, "Test_output", "movie_ratings_dictionary_NLD")
+	# print_output_to_file(movies_and_users_who_rated, "Test_output", "movies_and_users_who_rated_NLD")
 
 
 
