@@ -30,7 +30,7 @@ def file_len(my_file):
 		for i, l in enumerate(f):
 			pass
 		return (i+1)
-
+ 
 
 def create_dictionary_of_ratings(directory_name, movie_ratings_dictionary):
 
@@ -46,13 +46,16 @@ def create_dictionary_of_ratings(directory_name, movie_ratings_dictionary):
 	for j in xrange(len(files)):
 
 		movie_id = j + 1
-		filepath = directory_name + "/" + files[movie_id-1]
-		ratings = read_movie_rating(filepath)
+		movie_id_string = "%07d" % movie_id
+		#filepath = directory_name + "/" + files[movie_id-1]
+		#ratings = read_movie_rating(filepath)
+		filepath = directory_name + "/" + "mv_" + movie_id_string +".txt"
 
 		list_of_users_who_rated_movie = []
+		print movie_id
 
 
-		for i in xrange(2,file_len(filepath)):
+		for i in xrange(2,file_len(filepath)+1):
 			individual_rating = linecache.getline(filepath, i).split(",")
 
 	
@@ -65,6 +68,7 @@ def create_dictionary_of_ratings(directory_name, movie_ratings_dictionary):
 			movie_ratings_dictionary[key] = rating
 
 		movies_and_users_who_rated[movie_id] = list_of_users_who_rated_movie
+		linecache.clearcache()
 
 
 	return movie_ratings_dictionary, movies_and_users_who_rated
@@ -387,20 +391,20 @@ def main():
 
 	np.set_printoptions(precision=2)
 
-	K=2 
-	iterations=5000
-	alpha=.0002
-	beta=.0002
-	num_users = 30
+	# K=2 
+	# iterations=5000
+	# alpha=.0002
+	# beta=.0002
+	# num_users = 30
 
 	dictionary = {}
-	movie_ratings_dictionary, movies_and_users_who_rated = create_dictionary_of_ratings("netflix_local_data", dictionary)
+	movie_ratings_dictionary, movies_and_users_who_rated = create_dictionary_of_ratings("training_set", dictionary)
 
 
-	P, Q, movies_and_index_in_neighborhood = matrix_factorization_from_file(neighborhood_tuple, K, iterations, alpha, beta,
-	 num_users, num_movies, ratings_dictionary)
-	# print_output_to_file(movie_ratings_dictionary, "Test_output", "movie_ratings_dictionary_NLD")
-	# print_output_to_file(movies_and_users_who_rated, "Test_output", "movies_and_users_who_rated_NLD")
+	# P, Q, movies_and_index_in_neighborhood = matrix_factorization_from_file(neighborhood_tuple, K, iterations, alpha, beta,
+	#  num_users, num_movies, ratings_dictionary)
+	print_output_to_file(movie_ratings_dictionary, "Test_output", "movie_ratings_dictionary_full")
+	print_output_to_file(movies_and_users_who_rated, "Test_output", "movies_and_users_who_rated_full")
 
 
 

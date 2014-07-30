@@ -89,9 +89,6 @@ def main():
 	end_time = datetime.datetime.now()
 	time_elapsed = end_time-start_time
 
-	a = MR_build_matrix()
-	pprint(a.ratings_dictionary)
-
 	print "***********************************************************"
 	print "Total Time Elapsed: %s" % time_elapsed
 
