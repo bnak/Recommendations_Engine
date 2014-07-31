@@ -46,7 +46,7 @@ class MR_build_matrix(MRJob):
 			for movie in movies_and_neighborhood[item]:
 
 				value = movie
-				print (key, value)
+
 
 				yield (key, value)
 
@@ -54,14 +54,14 @@ class MR_build_matrix(MRJob):
 
 	def reducer_create_matrix(self, neighborhood, movie): 
 
-		movies_in_neighborhood = list(movie)
+		movies_in_neighborhood = list(movie)  
 		movies_in_neighborhood = build_matrix.remove_duplicates_from_list(movies_in_neighborhood)
-		print movies_in_neighborhood
+
 
 		P, Q, movies_and_index_in_neighborhood = build_matrix.matrix_factorization_from_file(movies_in_neighborhood, 
 			self.K, self.iterations, self.alpha, self.beta, self.num_users, self.ratings_dictionary)
 
-		print movies_and_index_in_neighborhood
+
 
 		predicted_ratings_dictionary = build_matrix.create_dictionary_of_predicted_ratings (P, Q, movies_and_index_in_neighborhood, self.num_users)
 
