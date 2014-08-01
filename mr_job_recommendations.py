@@ -35,19 +35,21 @@ class MR_build_matrix(MRJob):
 	def mapper_build_neighborhoods(self, _, movies):
 		#yields (out_key, out_value) = (neighborhood, movies)
 
-		movies_and_neighborhood = build_matrix.make_neighborhoods_from_movie(self.movies_and_users_who_rated, 
-				self.list_of_movies_that_define_neighborhood, self.num_neighborhoods, self.max_size_of_neighborhood)
+		movies_and_neighborhood = build_matrix.make_neighborhoods_from_movie(
+										self.movies_and_users_who_rated, 
+										self.list_of_movies_that_define_neighborhood, 
+										self.num_neighborhoods, 
+										self.max_size_of_neighborhood)
 
 
-		for item in movies_and_neighborhood.iterkeys():
-			#yield (movid_id that defines neighborhood, list of movies in that neighborhood)
-			key = item
+		for key in movies_and_neighborhood.iterkeys():
 
-			for movie in movies_and_neighborhood[item]:
+
+			for movie in movies_and_neighborhood[key]:
 
 				value = movie
 
-
+				#yield (neighborhood number, movie)
 				yield (key, value)
 
 

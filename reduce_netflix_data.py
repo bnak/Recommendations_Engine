@@ -8,7 +8,7 @@ import fileinput
 
 """Eliminates user ratings to reduce the overall dataset
 	
-	8850 movies x 100,000 users = 885,000,000 elements
+	500 movies x 10000 users = 5,000,000 elements
 """
 
 
@@ -41,10 +41,6 @@ def remove_rating_by_user_id (movie_id, filename, max_users):
 	f.close()
 
 def reduce_netflix_dataset(directory_name, num_movies, max_users):
-
-	files = os.listdir(directory_name)
-
-	
 	for j in xrange(num_movies):
 
 		movie_id = j + 1
@@ -63,8 +59,8 @@ def main():
 	start_time=datetime.datetime.now()
 
 	np.set_printoptions(precision=2)
-	
-	reduce_netflix_dataset("netflix_local_data", 20, 20)
+
+	reduce_netflix_dataset("training_set/pt1_1_8850", 500, 10000)
 
 	end_time = datetime.datetime.now()
 	time_elapsed = end_time-start_time

@@ -73,6 +73,9 @@ def create_dictionary_of_ratings(directory_name):
 
 	files = os.listdir(directory_name)
 
+	if files[0] == ".DS_Store":
+		files.pop(0)
+
 	movies_and_users_who_rated = {} #(key, value) = (movie_id, [users_rated])
 
 	
@@ -85,18 +88,22 @@ def create_dictionary_of_ratings(directory_name):
 
 		list_of_users_who_rated_movie = []
 
+		if file_len(filepath) <2:
+			pass
+		else: 
 
-		for i in xrange(2,file_len(filepath)+1):
-			individual_rating = linecache.getline(filepath, i).split(",")
 
-	
-			user_id = int(individual_rating[0])	
-			rating = int(individual_rating[1])
+			for i in xrange(2,file_len(filepath)+1):
+				individual_rating = linecache.getline(filepath, i).split(",")
 
-			list_of_users_who_rated_movie.append(user_id)
+		
+				user_id = int(individual_rating[0])	
+				rating = int(individual_rating[1])
 
-			key = (movie_id, user_id)
-			movie_ratings_dictionary[key] = rating
+				list_of_users_who_rated_movie.append(user_id)
+
+				key = (movie_id, user_id)
+				movie_ratings_dictionary[key] = rating
 
 		movies_and_users_who_rated[movie_id] = list_of_users_who_rated_movie
 		linecache.clearcache()
@@ -114,6 +121,18 @@ def calculate_common_users_of_both_movies(movie1, movie2, movies_and_users_who_r
 		#set.intersection: Return a new set with elements common to the set and all others.
 
 	return len(common_users)
+
+def index_of_list_max(list1):
+	max_item = None
+	max_index = None
+
+	for i in range(len(list1)):
+		if list1[i] > max_item:
+  			max_item = list1[i]
+  		
+  		max_index = i
+	
+	return max_index
 
 
 
@@ -158,25 +177,31 @@ def make_neighborhoods_from_movie(movies_and_users_who_rated,
 
 	for movie in movies:
 		movie_id = movie[0]
-		#print movie_id
 
-		best_match=1
+		#best_match=list_of_movies_that_define_neighborhood[2]
 
-		movies_and_users_who_rated[0] = []
+		#movies_and_users_who_rated[0] = []
+
+		common_users_score = []
 
 
-		for item in list_of_movies_that_define_neighborhood:
+		for i in range(len(list_of_movies_that_define_neighborhood)):
 
-			best_match_score = calculate_common_users_of_both_movies(movie_id, best_match, movies_and_users_who_rated)
+			#best_match_score = calculate_common_users_of_both_movies(movie_id, best_match, movies_and_users_who_rated)
 
-			common_users = calculate_common_users_of_both_movies(movie_id, item, movies_and_users_who_rated)
+			common_users = calculate_common_users_of_both_movies(movie_id, list_of_movies_that_define_neighborhood[i],
+								 movies_and_users_who_rated)
 
-			if common_users > best_match_score:
+			common_users_score.append(common_users)
 
-				if len(movies_and_neighborhood[item])<max_size_of_neighborhood:
-					best_match = item
+		for i in range(len(list_of_movies_that_define_neighborhood)):
+			best_match_index = int(index_of_list_max(common_users_score))
+			best_match = list_of_movies_that_define_neighborhood[best_match_index]
 
-		movies_and_neighborhood[best_match].append(movie_id)
+			if len(movies_and_neighborhood[best_match])<max_size_of_neighborhood:
+				movies_and_neighborhood[best_match].append(movie_id)
+			else: 
+				common_users_score.pop(best_match_index)
 
 
 	return movies_and_neighborhood
@@ -285,17 +310,20 @@ def main():
 	# beta=.0002
 	# num_users = 30
 
-	movie_ratings_dictionary, movies_and_users_who_rated = create_dictionary_of_ratings("training_set")
+	movie_ratings_dictionary, movies_and_users_who_rated = create_dictionary_of_ratings("500x10000_dataset")
 
 
 	# P, Q, movies_and_index_in_neighborhood = matrix_factorization_from_file(neighborhood_tuple, K, iterations, alpha, beta,
 	#  num_users, num_movies, ratings_dictionary)
 	print_output_to_file(movie_ratings_dictionary, "Test_output", "movie_ratings_dictionary_full")
 	print_output_to_file(movies_and_users_who_rated, "Test_output", "movies_and_users_who_rated_full")
+	movies_and_neighborhood = make_neighborhoods_from_movie(movies_and_users_who_rated, 
+	[30,457,313,191,175,483], 5, 100)
 
-
-
-
+	for item in movies_and_neighborhood.items():
+		list_movies = item[1]
+		print len(list_movies)
+	
 
 	end_time = datetime.datetime.now()
 	time_elapsed = end_time-start_time
