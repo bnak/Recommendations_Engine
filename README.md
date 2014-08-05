@@ -5,7 +5,7 @@ This is an implementation of a neighbor-based matrix decomposition recommendatio
 
 
 #<b>Quickstart</b>
-Install Python packages Yelp's mrjob package](https://github.com/Yelp/mrjob) and NumPy. 
+Install Python packages [Yelp's mrjob package](https://github.com/Yelp/mrjob) and NumPy. 
 
 <b>build_matrix.py</b> will read in a directory, build the initial ratings matrix, and create predicted ratings that can be output to the terminal. 
 
