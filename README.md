@@ -7,9 +7,9 @@ This is an implementation of a neighbor-based matrix decomposition recommendatio
 #<b>Quickstart</b>
 Install Python packages Yelp's mrjob package](https://github.com/Yelp/mrjob) and NumPy. 
 
-build_matrix.py will read in a directory, build the initial ratings matrix, and create predicted ratings that can be output to the terminal. 
+<b>build_matrix.py</b> will read in a directory, build the initial ratings matrix, and create predicted ratings that can be output to the terminal. 
 
-mr_job_recommendations.py will load:
+<b>mr_job_recommendations.py</b> will load:
 dictionary of movie ratings - (Key: (movie_id, user_id), Value: rating)
 dictionary of movies and users who have rated each movie, used to build neighborhoods - (Key: movie_id, Value: list of users who have rated that movie) 
 The map function places movies into neighborhoods and the reduce function produced predicted ratings through matrix decomposition. Yelp's mrjob package has great [documentation](https://pythonhosted.org/mrjob/) and can be configured to Hadoop and Amazon EMR jobs. 
@@ -19,7 +19,7 @@ Within the Python files, you can also set the following inputs to affect the acc
 	    K     : the number of latent features
 	    iterations : the maximum number of iterations toward optimization
 	    alpha : the learning rate (rate at which vectors in P and Q are incremented toward existing ratings)
-	    beta  : the regularization parameter
+	    beta  : the regularization parameter (prevents overfitting) 
 
 
 
