@@ -62,17 +62,18 @@ Neighbor-based Matrix Decomposition
 
 #<b>References and Sources </b></br> 
 
-*(Matrix Factorization Techniques for Recommender Systems)[https://datajobs.com/data-science-repo/Recommender-Systems-%5BNetflix%5D.pdf]
+*[Matrix Factorization Techniques for Recommender Systems](https://datajobs.com/data-science-repo/Recommender-Systems-%5BNetflix%5D.pdf)
 
-*(PyCon 2011: mrjob: Distributed Computing for Everyone)[http://blip.tv/pycon-us-videos-2009-2010-2011/pycon-2011-mrjob-distributed-computing-for-everyone-4898987/]
+*[PyCon 2011: mrjob: Distributed Computing for Everyone](http://blip.tv/pycon-us-videos-2009-2010-2011/pycon-2011-mrjob-distributed-computing-for-everyone-4898987/)
 
-*(Matrix Factorization: A Simple Tutorial and Implementation in Python)[http://www.quuxlabs.com/blog/2010/09/matrix-factorization-a-simple-tutorial-and-implementation-in-python/]
+*[Matrix Factorization: A Simple Tutorial and Implementation in Python](http://www.quuxlabs.com/blog/2010/09/matrix-factorization-a-simple-tutorial-and-implementation-in-python/)
 
-*(Using Linear Algebra for Intelligent Information Retrieval)[http://lsirwww.epfl.ch/courses/dis/2003ws/papers/ut-cs-94-270.pdf]
+*[Using Linear Algebra for Intelligent Information Retrieval](http://lsirwww.epfl.ch/courses/dis/2003ws/papers/ut-cs-94-270.pdf)
 
-*(Large-scale Parallel Collaborative Filtering for the Netflix Prize) [http://www.hpl.hp.com/personal/Robert_Schreiber/papers/2008%20AAIM%20Netflix/netflix_aaim08(submitted).pdf]
+*[Large-scale Parallel Collaborative Filtering for the Netflix Prize] (http://www.hpl.hp.com/personal/Robert_Schreiber/papers/2008%20AAIM%20Netflix/netflix_aaim08(submitted).pdf)
 
-*(Incremental Singular Value Decomposition Algorithms for Highly Scaleable Recommender Systems)[http://files.grouplens.org/papers/sarwar_SVD.pdf]
+*[Incremental Singular Value Decomposition Algorithms for Highly Scaleable Recommender Systems](http://files.grouplens.org/papers/sarwar_SVD.pdf)
+
 
 
 
