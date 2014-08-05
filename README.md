@@ -5,13 +5,15 @@ This is an implementation of a neighbor-based matrix decomposition recommendatio
 
 
 #<b>Quickstart</b>
-Install Python packages [Yelp's mrjob package](https://github.com/Yelp/mrjob) and NumPy. 
+Install Python packages [Yelp's mrjob package](https://github.com/Yelp/mrjob) and [NumPy](http://www.numpy.org/). 
 
 <b>build_matrix.py</b> will read in a directory, build the initial ratings matrix, and create predicted ratings that can be output to the terminal. 
 
 <b>mr_job_recommendations.py</b> will load:
 dictionary of movie ratings - (Key: (movie_id, user_id), Value: rating)
+
 dictionary of movies and users who have rated each movie, used to build neighborhoods - (Key: movie_id, Value: list of users who have rated that movie) 
+
 The map function places movies into neighborhoods and the reduce function produced predicted ratings through matrix decomposition. Yelp's mrjob package has great [documentation](https://pythonhosted.org/mrjob/) and can be configured to Hadoop and Amazon EMR jobs. 
 
 Within the Python files, you can also set the following inputs to affect the accuracy of the algorithm, and the impact of these parameters are discussed in more detail below: 
@@ -46,11 +48,27 @@ Neighbor-based Matrix Decomposition
 
 ![alt text](https://raw.githubusercontent.com/bnak/Recommendations_Engine/mrjob/static/matrix1.jpg)
 
+
+
+
 ![alt text](https://raw.githubusercontent.com/bnak/Recommendations_Engine/mrjob/static/matrix4.jpg)
+
+
 
 
 ![alt text](https://raw.githubusercontent.com/bnak/Recommendations_Engine/mrjob/static/MapReduce.jpg)
 
+
+
+#<b>References and Sources </b></br> 
+
+(Source)[https://datajobs.com/data-science-repo/Recommender-Systems-%5BNetflix%5D.pdf]
+(Source)[http://blip.tv/pycon-us-videos-2009-2010-2011/pycon-2011-mrjob-distributed-computing-for-everyone-4898987/]
+(Source)[http://www.quuxlabs.com/blog/2010/09/matrix-factorization-a-simple-tutorial-and-implementation-in-python/]
+(Source)[http://lsirwww.epfl.ch/courses/dis/2003ws/papers/ut-cs-94-270.pdf]
+
+(Source)[http://www.hpl.hp.com/personal/Robert_Schreiber/papers/2008%20AAIM%20Netflix/netflix_aaim08(submitted).pdf]
+(Source)[http://files.grouplens.org/papers/sarwar_SVD.pdf]
 
 
 
