@@ -15,9 +15,12 @@ Neighborhood-based Matrix Decomposition
 
 <b>File Manifest:</b>
 
-<em>build_matrix.py - </em> functions that read in data files, produce neighborhoods, performs matrix decomposition, and creates predictive ratings matrix. 
-<em>mr_job_recommendations.py - </em> program that runs the matrix decomposition as a MapReduce job using Yelp's MRjob package
-<em>build_test_data.py - </em> program that builds files in the same format as the Netflix data to produce practice datasets
+<em>build_matrix.py - </em> functions that read in data files, produce neighborhoods, performs matrix decomposition, and creates predictive ratings matrix. </br> 
+<em>mr_job_recommendations.py - </em> program that runs the matrix decomposition as a MapReduce job using Yelp's MRjob package</br> 
+<em>build_test_data.py - </em> program that builds files in the same format as the Netflix data to produce practice datasets</br> 
+
+
+
 
 
 
