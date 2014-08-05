@@ -13,7 +13,7 @@ How does one calculate predicted ratings for each (movie, user) pair from a very
 Neighborhood-based Matrix Decomposition
 
 
-
+</br></br></br></br></br>
 
 
 <b>File Manifest:</b>
