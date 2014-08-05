@@ -44,7 +44,7 @@ How does one calculate predicted ratings for each (movie, user) pair from a very
 #<b>The Solution </b></br> 
 Neighbor-based Matrix Decomposition
 
-![alt text](https://github.com/bnak/Recommendations_Engine/mrjob/static/matrix1.jpg "Logo Title Text 1")
+![alt text](https://raw.githubusercontent.com/bnak/Recommendations_Engine/mrjob/static/matrix1.jpg "Logo Title Text 1")
 
 
 
