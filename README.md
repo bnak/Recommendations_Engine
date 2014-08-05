@@ -84,7 +84,7 @@ Neighbor-based Matrix Decomposition
 
 [Meghan Hade](http://www.seas.upenn.edu/~terfan/strugglebus/pennapps2013f/)
 
-[Christian's Musings] (http://www.hackbrightacademy.com/)
+Christian's Musings
 
 Cynthia Dueltgen
 
