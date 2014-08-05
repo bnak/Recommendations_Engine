@@ -60,7 +60,9 @@ Neighbor-based Matrix Decomposition
 
 
 
-#<b>References and Sources </b></br> 
+#<b>Credit where credit is due</b></br> 
+
+<b>Sources</b>
 
 [Matrix Factorization Techniques for Recommender Systems](https://datajobs.com/data-science-repo/Recommender-Systems-%5BNetflix%5D.pdf)
 
@@ -74,9 +76,22 @@ Neighbor-based Matrix Decomposition
 
 [Incremental Singular Value Decomposition Algorithms for Highly Scaleable Recommender Systems](http://files.grouplens.org/papers/sarwar_SVD.pdf)
 
+<b>People</b>
 [Dr. J] (http://www.amazon.com/Probing-supersymmetry-cosmogenic-neutrinos-Uscinski/dp/1244944467)
 
-[Meghan Hade](www.google.com)
+[Meghan Hade](http://www.seas.upenn.edu/~terfan/strugglebus/pennapps2013f/)
+
+[Christian's Musings] (http://www.hackbrightacademy.com/)
+
+Cynthia Dueltgen
+
+Nick Avgerinos
+
+Anusha Rajan
+
+Daniel Malmer
+
+Gowri Grewal
 
 
 
