@@ -315,18 +315,18 @@ def main():
 
 	# P, Q, movies_and_index_in_neighborhood = matrix_factorization_from_file(neighborhood_tuple, K, iterations, alpha, beta,
 	#  num_users, num_movies, ratings_dictionary)
-	print_output_to_file(movie_ratings_dictionary, "Test_output", "movie_ratings_dictionary_full")
-	print_output_to_file(movies_and_users_who_rated, "Test_output", "movies_and_users_who_rated_full")
-	movies_and_neighborhood = make_neighborhoods_from_movie(movies_and_users_who_rated, 
-	[30,457,313,191,175,483], 5, 100)
+	# print_output_to_file(movie_ratings_dictionary, "Test_output", "movie_ratings_dictionary_full")
+	# print_output_to_file(movies_and_users_who_rated, "Test_output", "movies_and_users_who_rated_full")
+	# movies_and_neighborhood = make_neighborhoods_from_movie(movies_and_users_who_rated, 
+	# [30,457,313,191,175,483], 5, 100)
 
-	for item in movies_and_neighborhood.items():
-		list_movies = item[1]
-		print len(list_movies)
+	# for item in movies_and_neighborhood.items():
+	# 	list_movies = item[1]
+	# 	print len(list_movies)
 	
 
-	end_time = datetime.datetime.now()
-	time_elapsed = end_time-start_time
+	# end_time = datetime.datetime.now()
+	# time_elapsed = end_time-start_time
 
 	print "***********************************************************"
 	print "Total Time Elapsed: %s" % time_elapsed
