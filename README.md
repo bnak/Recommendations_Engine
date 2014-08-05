@@ -76,7 +76,10 @@ Neighbor-based Matrix Decomposition
 
 [Incremental Singular Value Decomposition Algorithms for Highly Scaleable Recommender Systems](http://files.grouplens.org/papers/sarwar_SVD.pdf)
 
+
+
 <b>People</b>
+
 [Dr. J] (http://www.amazon.com/Probing-supersymmetry-cosmogenic-neutrinos-Uscinski/dp/1244944467)
 
 [Meghan Hade](http://www.seas.upenn.edu/~terfan/strugglebus/pennapps2013f/)
