@@ -13,6 +13,9 @@ How does one calculate predicted ratings for each (movie, user) pair from a very
 Neighborhood-based Matrix Decomposition
 
 
+
+
+
 <b>File Manifest:</b>
 
 <em>build_matrix.py - </em> functions that read in data files, produce neighborhoods, performs matrix decomposition, and creates predictive ratings matrix. </br>
