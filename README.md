@@ -76,6 +76,8 @@ Neighbor-based Matrix Decomposition
 
 [Dr. J] (http://www.amazon.com/Probing-supersymmetry-cosmogenic-neutrinos-Uscinski/dp/1244944467)
 
+[Meghan Hade](www.google.com)
+
 
 
 
