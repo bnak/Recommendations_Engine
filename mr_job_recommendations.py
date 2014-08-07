@@ -12,8 +12,8 @@ class MR_build_matrix(MRJob):
 
 	def __init__(self, *args, **kwargs):
 		super(MR_build_matrix, self).__init__(*args, **kwargs)
-		self.ratings_dictionary = {}#np.load("movie_ratings_dictionary_NLD").item() #needs to be loaded from input file
-		self.movies_and_users_who_rated = {}#np.load("movies_and_users_who_rated_NLD").item() #needs to be loaded from input file
+		self.ratings_dictionary = np.load("movie_ratings_dictionary_NLD").item() #needs to be loaded from input file
+		self.movies_and_users_who_rated = np.load("movies_and_users_who_rated_NLD").item() #needs to be loaded from input file
 		self.num_movies = 20 #static int - hardcoded
 		self.num_users = 30 #static int - hardcoded
 

@@ -8,14 +8,12 @@ from pprint import pprint
 
 #Class for input generators
 
-
 """
 xrange only available in Python 2.7; generator for iteration rather than creating a list
 Matrix: rows x columns
 Ratings: Movies x Users
 
 """
-
 
 def read_movie_rating(my_file):
 	f = open(my_file)
@@ -25,28 +23,16 @@ def read_movie_rating(my_file):
 
 
 def file_len(my_file):
-
 	with open(my_file) as f:
 		for i, l in enumerate(f):
 			pass
 		return (i+1)
 
 def print_output_to_file(output_matrix, directory_name, file_name):
-
-	print output_matrix
-
-
 	filepath = directory_name + "/" + file_name
-
 	output_text = open(filepath, 'w')
-
 	np.save(output_text, output_matrix)
-
-	#output_matrix.tofile(output_text, "\n", "%d")
-
-
 	print "Output %s printed." % file_name
-
 
 
 def remove_duplicates_from_list(list1): 
@@ -57,7 +43,6 @@ def remove_duplicates_from_list(list1):
            checked.append(x)
    return checked
 
- 
 
 def create_dictionary_of_ratings(directory_name):
 	"""
@@ -68,9 +53,7 @@ def create_dictionary_of_ratings(directory_name):
 		movie_ratings_dictionary: ((movie_id, user_id), rating)
 		movies_and_users_who_rated: (movie_id, [user_ids_who_rated)
 	"""
-
 	movie_ratings_dictionary = {} 
-
 	files = os.listdir(directory_name)
 
 	if files[0] == ".DS_Store":
@@ -83,16 +66,12 @@ def create_dictionary_of_ratings(directory_name):
 
 		movie_id = j + 1
 		movie_id_string = "%07d" % movie_id
-
 		filepath = directory_name + "/" + "mv_" + movie_id_string +".txt"
-
 		list_of_users_who_rated_movie = []
 
 		if file_len(filepath) <2:
 			pass
 		else: 
-
-
 			for i in xrange(2,file_len(filepath)+1):
 				individual_rating = linecache.getline(filepath, i).split(",")
 
@@ -108,32 +87,23 @@ def create_dictionary_of_ratings(directory_name):
 		movies_and_users_who_rated[movie_id] = list_of_users_who_rated_movie
 		linecache.clearcache()
 
-
 	return movie_ratings_dictionary, movies_and_users_who_rated
 
 
-
 def calculate_common_users_of_both_movies(movie1, movie2, movies_and_users_who_rated):
-
 	common_users = movies_and_users_who_rated[movie1]
-
 	common_users = list(set(common_users).intersection(movies_and_users_who_rated[movie2]))
 		#set.intersection: Return a new set with elements common to the set and all others.
-
 	return len(common_users)
 
 def index_of_list_max(list1):
 	max_item = None
 	max_index = None
-
 	for i in range(len(list1)):
 		if list1[i] > max_item:
   			max_item = list1[i]
-  		
   		max_index = i
-	
 	return max_index
-
 
 
 def make_neighborhoods_from_movie(movies_and_users_who_rated, 
@@ -158,40 +128,24 @@ def make_neighborhoods_from_movie(movies_and_users_who_rated,
 	'''
 
 	neighborhoods =[[] for x in xrange(num_neighborhoods)] #list of neighborhoods
-
 	movies_and_neighborhood = {}
-
-
 	list_of_movies_that_define_neighborhood = list_of_movies_that_define_neighborhood[0:num_neighborhoods]
-
 
 	for i in range(num_neighborhoods):
 		movies_and_neighborhood[list_of_movies_that_define_neighborhood[i]] = neighborhoods[i]
 
 
 	movies_and_users_who_rated.pop(0, None)
-	
 	movies = movies_and_users_who_rated.items()
-
-
 
 	for movie in movies:
 		movie_id = movie[0]
-
-		#best_match=list_of_movies_that_define_neighborhood[2]
-
-		#movies_and_users_who_rated[0] = []
-
 		common_users_score = []
-
 
 		for i in range(len(list_of_movies_that_define_neighborhood)):
 
-			#best_match_score = calculate_common_users_of_both_movies(movie_id, best_match, movies_and_users_who_rated)
-
 			common_users = calculate_common_users_of_both_movies(movie_id, list_of_movies_that_define_neighborhood[i],
 								 movies_and_users_who_rated)
-
 			common_users_score.append(common_users)
 
 		for i in range(len(list_of_movies_that_define_neighborhood)):
@@ -205,7 +159,6 @@ def make_neighborhoods_from_movie(movies_and_users_who_rated,
 
 
 	return movies_and_neighborhood
-
 
 
 def matrix_factorization_from_file(neighborhood, K, iterations, alpha, beta,
@@ -269,16 +222,11 @@ def matrix_factorization_from_file(neighborhood, K, iterations, alpha, beta,
 	return P, Q.T, movie_and_index_in_neighborhood
 
 
-
 def create_dictionary_of_predicted_ratings (P, Q, movies_and_index_in_neighborhood, num_users):
 
 	predicted_ratings_dictionary = {}
-
 	predicted_ratings_matrix = np.dot(P, Q.T)
-
 	predicted_raings_matrix = np.around(predicted_ratings_matrix, decimals = 1)
-
-
 	movies_in_neighborhood = movies_and_index_in_neighborhood.items()
 
 	for movie in movies_in_neighborhood:
@@ -297,42 +245,15 @@ def create_dictionary_of_predicted_ratings (P, Q, movies_and_index_in_neighborho
 	return predicted_ratings_dictionary
 
 
-
 def main(): 
 
 	start_time=datetime.datetime.now()
 
 	np.set_printoptions(precision=2)
 
-	# K=2 
-	# iterations=5000
-	# alpha=.0002
-	# beta=.0002
-	# num_users = 30
 
-	movie_ratings_dictionary, movies_and_users_who_rated = create_dictionary_of_ratings("250x1000")
-
-
-	# P, Q, movies_and_index_in_neighborhood = matrix_factorization_from_file(neighborhood_tuple, K, iterations, alpha, beta,
-	#  num_users, num_movies, ratings_dictionary)
-	print_output_to_file(movie_ratings_dictionary, "Test_output", "movie_ratings_dictionary_full")
-	print_output_to_file(movies_and_users_who_rated, "Test_output", "movies_and_users_who_rated_full")
-	# movies_and_neighborhood = make_neighborhoods_from_movie(movies_and_users_who_rated, 
-	# [30,457,313,191,175,483], 5, 100)
-
-	# for item in movies_and_neighborhood.items():
-	# 	list_movies = item[1]
-	# 	print len(list_movies)
-	
-
-	# end_time = datetime.datetime.now()
-	# time_elapsed = end_time-start_time
-
-	# print "***********************************************************"
-	# print "Total Time Elapsed: %s" % time_elapsed
-
-	
-
+	print "***********************************************************"
+	print "Total Time Elapsed: %s" % time_elapsed
 
 
 if __name__ == '__main__':

@@ -9,3 +9,7 @@
 /demo.tar.gz
 
 /data_sets
+
+.gitignore
+
+/all_functions.py
