@@ -13,3 +13,7 @@
 .gitignore
 
 /all_functions.py
+
+/check_movie_ratings.txt
+
+/ignore_files
