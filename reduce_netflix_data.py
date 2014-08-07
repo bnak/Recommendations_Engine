@@ -60,7 +60,7 @@ def main():
 
 	np.set_printoptions(precision=2)
 
-	reduce_netflix_dataset("training_set/pt1_1_8850", 500, 10000)
+	reduce_netflix_dataset("250x1000", 250, 1000)
 
 	end_time = datetime.datetime.now()
 	time_elapsed = end_time-start_time

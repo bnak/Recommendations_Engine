@@ -310,13 +310,13 @@ def main():
 	# beta=.0002
 	# num_users = 30
 
-	movie_ratings_dictionary, movies_and_users_who_rated = create_dictionary_of_ratings("500x10000_dataset")
+	movie_ratings_dictionary, movies_and_users_who_rated = create_dictionary_of_ratings("250x1000")
 
 
 	# P, Q, movies_and_index_in_neighborhood = matrix_factorization_from_file(neighborhood_tuple, K, iterations, alpha, beta,
 	#  num_users, num_movies, ratings_dictionary)
-	# print_output_to_file(movie_ratings_dictionary, "Test_output", "movie_ratings_dictionary_full")
-	# print_output_to_file(movies_and_users_who_rated, "Test_output", "movies_and_users_who_rated_full")
+	print_output_to_file(movie_ratings_dictionary, "Test_output", "movie_ratings_dictionary_full")
+	print_output_to_file(movies_and_users_who_rated, "Test_output", "movies_and_users_who_rated_full")
 	# movies_and_neighborhood = make_neighborhoods_from_movie(movies_and_users_who_rated, 
 	# [30,457,313,191,175,483], 5, 100)
 
@@ -328,8 +328,8 @@ def main():
 	# end_time = datetime.datetime.now()
 	# time_elapsed = end_time-start_time
 
-	print "***********************************************************"
-	print "Total Time Elapsed: %s" % time_elapsed
+	# print "***********************************************************"
+	# print "Total Time Elapsed: %s" % time_elapsed
 
 	
 

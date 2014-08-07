@@ -1,3 +1,11 @@
 *.pyc
 
 /training_set
+
+/aws_mrjob.py
+
+/aws settings for smaller dataset
+
+/demo.tar.gz
+
+/data_sets
