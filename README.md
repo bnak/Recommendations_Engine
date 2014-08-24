@@ -40,10 +40,9 @@ Within the Python files, you can also set the following inputs to affect the acc
 
 
 
-#<b>The Inspiration</b></br> 
+#<b>The Netflix Prize</b></br> 
 In 2006, Netflix announced an open competition for the best <em>collaborative filtering algorithm</em> to predict user ratings for films based solely on previous ratings. Netflix provided a dataset of 480,189 users, 17,770 movies, and 100,480,507 ratings. 
 
-#<b>The Challenge </b></br> 
 How does one calculate predicted ratings for each (movie, user) pair from a very sparse seed dataset? 
 
 #<b>The Solution </b></br> 
