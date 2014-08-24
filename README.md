@@ -76,7 +76,7 @@ The reducing step performs the matrix decomposition on the neighborhood.
 
 
 
-#<b>Credit where credit is due</b></br> 
+#<b>References</b></br> 
 
 <b>Sources</b>
 
