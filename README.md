@@ -4,7 +4,7 @@
 This is an implementation of a neighbor-based matrix decomposition recommendations engine using [Yelp's mrjob package](https://github.com/Yelp/mrjob) to run the program on [Amazon's Elastic MapReduce](http://aws.amazon.com/elasticmapreduce/). 
 
 
-#<b>Quickstart</b>
+# <b>Quickstart</b>
 Install Python packages [Yelp's mrjob package](https://github.com/Yelp/mrjob) and [NumPy](http://www.numpy.org/). 
 
 <b>build_matrix.py</b> will read in a directory, build the initial ratings matrix, and create predicted ratings that can be output to the terminal. 
@@ -26,7 +26,7 @@ Within the Python files, you can also set the following inputs to affect the acc
 
 
 
-#<b>File Manifest</b>
+# <b>File Manifest</b>
 
 <b>build_matrix.py - </b> functions that read in data files, produce neighborhoods, performs matrix decomposition, and creates predictive ratings matrix. </br>
 
@@ -40,12 +40,12 @@ Within the Python files, you can also set the following inputs to affect the acc
 
 
 
-#<b>The Netflix Prize</b></br> 
+# <b>The Netflix Prize</b></br> 
 In 2006, Netflix announced an open competition for the best <em>collaborative filtering algorithm</em> to predict user ratings for films based solely on previous ratings. Netflix provided a dataset of 480,189 users, 17,770 movies, and 100,480,507 ratings. 
 
 How does one calculate predicted ratings for each (movie, user) pair from a very sparse seed dataset? 
 
-#<b>The Solution </b></br> 
+# <b>The Solution </b></br> 
 Neighbor-based Matrix Decomposition
 
 ![alt text](https://raw.githubusercontent.com/bnak/Recommendations_Engine/mrjob/static/matrix1.jpg)
@@ -60,7 +60,7 @@ Two factor matrices are generated and the dot-product of the vectors from the fa
 
 Once the factor matrices are built, the product results in the predicted ratings matrix.
 
-#<b>MapReduce </b></br> 
+# <b>MapReduce </b></br> 
 
 Because of the size of the dataset, one can distribute computing on a Hadoop cluster. I divided the dataset into neighborhoods and used Yelp's mrjob package and Amazon's Elastic MapReduce.
 
@@ -76,7 +76,7 @@ The reducing step performs the matrix decomposition on the neighborhood.
 
 
 
-#<b>References</b></br> 
+# <b>References</b></br> 
 
 <b>Sources</b>
 
@@ -102,11 +102,11 @@ The reducing step performs the matrix decomposition on the neighborhood.
 
 [Meghan Hade](http://www.meghan.io/)
 
-[Christian's Musings] (https://www.youtube.com/watch?v=X1WSH0VzoaM)
+[Christian's Musings](https://www.youtube.com/watch?v=X1WSH0VzoaM)
 
-[Cynthia Dueltgen] (http://www.hackbrightacademy.com/)
+[Cynthia Dueltgen](http://www.hackbrightacademy.com/)
 
-[Nick Avgerinos] (http://www.hackbrightacademy.com/)
+[Nick Avgerinos](http://www.hackbrightacademy.com/)
 
 Anusha Rajan
 
